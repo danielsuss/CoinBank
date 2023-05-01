@@ -1,0 +1,6 @@
+pip install Flask==2.2.3
+pip install Flask-SQLAlchemy==2.5.1
+pip install SQLAlchemy==1.4.26
+pip install Flask-WTF==1.0.0
+pip install WTForms==3.0.0
+pip install bcrypt==1.0.1

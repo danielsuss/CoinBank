@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content %}
+<div class="container">
+    <h1>Welcome <span class="highlight-text">{{ current_user.username }}</span></h1>
+    <h2>You have</h2>
+    <p><span class="large-text highlight-text">£{{ current_user.balance }}</span> in your account.</p>
+    <div class="row-container">
+        <form action="{{url_for('account', action='w1')}}" method="POST">{{ buttons.withdraw_1(class='btn') }}</form>
+        <form action="{{url_for('account', action='w2')}}" method="POST">{{ buttons.withdraw_2(class='btn') }}</form>
+    </div>
+    <p><a href="{{url_for('logout')}}">Log Out</a></p>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <p>coin simulator</p>
+    <div class="row-container">
+        <form action="{{url_for('account', action='d1')}}" method="POST">{{ buttons.deposit_1(class='btn') }}</form>
+        <form action="{{url_for('account', action='d2')}}" method="POST">{{ buttons.deposit_2(class='btn') }}</form>
+    </div>    
+</div>
+{% endblock %}

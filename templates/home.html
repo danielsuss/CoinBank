@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content %}
+<div class="container">
+    <h1>Welcome</h1>
+    <h2>Currently Storing</h2>
+    {% if empty %}
+    <p>Nothing as no one has signed up yet :(</p>
+    {% else %}
+    <p class="small-text"><span class="large-text highlight-text">£{{ money }}</span> across all accounts.</p>
+    {% endif %}
+    <form method="POST">
+        {{ form.hidden_tag() }} {{ form.username(class='field') }} {{ form.password(class='field') }} {{ form.submit(class='btn') }}
+    </form>
+    <p><a href="{{url_for('register')}}">Don't have an account?</a></p>
+</div>
+{% endblock %}
