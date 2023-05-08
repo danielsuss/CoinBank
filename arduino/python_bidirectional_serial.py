@@ -8,23 +8,30 @@ def pass_to_flask(ip, port, flag):
         # right counter incremented
         requests.get(f"http://{ip}:{port}/account/d2")
 
-# get counters from existing data
-# if there are no counters, set them to 0
-def get_counters():
-    try:
-        with open('counters.txt', 'r') as f:
-            left_counter = int(f.readline())
-            right_counter = int(f.readline())
-    except:
-        left_counter = 0
-        right_counter = 0
-    return left_counter, right_counter
+# get money from existing database
 
-def set_counters(left_counter, right_counter):
-    with open('counters.txt', 'w') as f:
-        f.write(str(left_counter) + '\n')
-        f.write(str(right_counter) + '\n')
+def get_money(username):
+    SQL_ALCHEMY_DATABASE_URI = 'sqlite:///..\\database.db'
+    con = sqlite3.connect(SQL_ALCHEMY_DATABASE_URI)
+    cursor = con.cursor()
+    
+    cursor.execute(f"SELECT balance FROM users WHERE username = '{username}'")
+    money = cursor.fetchone()[0]
+    con.close()
+    return money
+    
 
+# update money in existing database
+
+def update_money(username, money):
+    SQL_ALCHEMY_DATABASE_URI = 'sqlite:///..\\database.db'
+    con = sqlite3.connect(SQL_ALCHEMY_DATABASE_URI)
+    cursor = con.cursor()
+    
+    cursor.execute(f"UPDATE users SET balance = {money} WHERE username = '{username}'")
+    con.commit()
+    
+    con.close()
 
 if __name__ == '__main__':
     ser = serial.Serial('COM5', 9600, timeout=1)
