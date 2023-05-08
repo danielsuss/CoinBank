@@ -1,4 +1,5 @@
 import serial, time, requests
+import sqlite3, sys
 
 def pass_to_flask(ip, port, flag):
     if flag:
@@ -37,7 +38,15 @@ if __name__ == '__main__':
     ser = serial.Serial('COM5', 9600, timeout=1)
     ser.reset_input_buffer()
     
-    left_counter, right_counter = get_counters()
+    username = sys.argv[1]
+    try:
+        money = get_money(username)
+    except:
+        print("User does not exist.")
+        exit()
+    
+    left_counter = 0
+    right_counter = 0
     
     while True:
         number = ser.read()
